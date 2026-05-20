@@ -17,7 +17,7 @@ class Solution {
         }
 
         return a;*/
-        //Method 2 
+        //Method 2 - Optimal Approach (Two Pointer) tc-O(n)
          int left = 0;
         int right = n.length - 1;
 
