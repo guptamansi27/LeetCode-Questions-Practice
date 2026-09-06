@@ -8,6 +8,7 @@
  *     ListNode(int val, ListNode next) { this.val = val; this.next = next; }
  * }
  */
+ //Method 1-With swapping links with values
 // class Solution {
 //     public ListNode swapNodes(ListNode head, int k) {
 //         int size=0;
@@ -49,6 +50,7 @@
         
 //     }
 // }
+/*Method 2 - only swap values (withput links as per q)
 class Solution {
     public ListNode swapNodes(ListNode head, int k) {
 
@@ -73,6 +75,30 @@ class Solution {
         int value = first.val;
         first.val = second.val;
         second.val = value;
+
+        return head;
+    }
+}*/
+//Method 3
+class Solution {
+    public ListNode swapNodes(ListNode head, int k) {
+        int size=0;
+        ListNode temp=head;
+        while(temp!=null){
+            temp=temp.next;
+            size++;
+        }
+        ListNode curX=head,curY=head;
+        for(int i=1;i<k;i++){
+            curX=curX.next;
+        }
+
+        for(int i=1;i<size-k+1;i++){
+            curY=curY.next;
+        }
+        int t=curX.val;
+        curX.val=curY.val;
+        curY.val=t;
 
         return head;
     }
