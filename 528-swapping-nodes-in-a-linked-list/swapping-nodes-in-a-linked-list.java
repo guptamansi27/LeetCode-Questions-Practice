@@ -28,8 +28,8 @@ class Solution {
             curY=curY.next;
         }
 
-        if(curX==null || curY==null)
-            return head;
+        // if(curX==null || curY==null)
+        //     return head;
         
         if(prevX!=null)
             prevX.next=curY;
