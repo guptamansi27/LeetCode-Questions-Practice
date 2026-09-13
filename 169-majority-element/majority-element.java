@@ -1,3 +1,4 @@
+//Method 1 - Brute Force
 class Solution {
     public int majorityElement(int[] nums) {
     HashMap<Integer,Integer> map = new HashMap<>();
@@ -8,7 +9,7 @@ class Solution {
             map.put(n,1);
         }
     }
-
+    /*Way 1
     Integer maxKey=null;
     int maxVal=Integer.MIN_VALUE;
     for(Map.Entry<Integer,Integer> entry : map.entrySet()){
@@ -17,6 +18,13 @@ class Solution {
             maxKey=entry.getKey();
         }
     }
-    return maxKey;
+    return maxKey;*/
+    //way 2
+     Integer max = map.entrySet().stream()
+                .max(Map.Entry.comparingByValue())
+                .map(Map.Entry::getKey)
+                .orElse(null);
+
+    return max;
     }
 }
