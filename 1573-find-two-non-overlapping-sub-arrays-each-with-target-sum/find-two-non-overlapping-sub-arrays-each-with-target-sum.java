@@ -2,46 +2,47 @@ class Solution {
     public int minSumOfLengths(int[] arr, int target) {
 
         int n = arr.length;
-        int[] minLenTillIdx = new int[n];
 
-        int INF = Integer.MAX_VALUE;
-        int bestMin = INF;
-        int result = INF;
+        // minLen[i] = shortest valid subarray from 0 to i
+        int[] minLen = new int[n];
 
-        int i = 0;
-        int currSum = 0;
+        int l = 0;
+        int sum = 0;
 
-        for (int j = 0; j < n; j++) {
+        int bestMin = n + 1;
+        int result = n + 1;
 
-            currSum += arr[j];
+        for (int r = 0; r < n; r++) {
 
-            // Shrink window if sum becomes greater than target
-            while (currSum > target && i <= j) {
-                currSum -= arr[i];
-                i++;
+            sum += arr[r];
+
+            // Reduce window
+            while (sum > target) {
+                sum -= arr[l];
+                l++;
             }
 
-            // Found a subarray with sum = target
-            if (currSum == target) {
+            // Found subarray [l ... r]
+            if (sum == target) {
 
-                int len = j - i + 1;
+                int len = r - l + 1;
 
-                // Combine with the shortest previous subarray
-                if (i > 0 && minLenTillIdx[i - 1] != INF) {
+                // Previous non-overlapping subarray
+                if (l > 0) {
                     result = Math.min(
                         result,
-                        len + minLenTillIdx[i - 1]
+                        len + minLen[l - 1]
                     );
                 }
 
-                // Update shortest subarray found so far
+                // Update shortest length
                 bestMin = Math.min(bestMin, len);
             }
 
-            // Store shortest valid subarray up to index j
-            minLenTillIdx[j] = bestMin;
+            // Store best answer till r
+            minLen[r] = bestMin;
         }
 
-        return result == INF ? -1 : result;
+        return result == n + 1 ? -1 : result;
     }
 }
