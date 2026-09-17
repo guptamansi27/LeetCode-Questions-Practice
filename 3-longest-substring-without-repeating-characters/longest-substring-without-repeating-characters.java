@@ -13,7 +13,7 @@ class Solution {
             }
             seen.add(s.charAt(right));
             //maxLength = Math.max(maxLength,right-left+1);
-            maxLength = Math.max(maxLength,seen.size());
+            maxLength = Math.max(maxLength,seen.size());//current window size for each iteration equal to set size
        }
        return maxLength;
     }
