@@ -26,7 +26,8 @@ class Solution {
 
             // Shrink if sum becomes too large
             while (sum > target) {
-                sum -= nums[left++];
+                sum -= nums[left];
+                left++;
             }
 
             // Valid subarray
@@ -42,3 +43,8 @@ class Solution {
         return n - maxLen;
     }
 }
+/*We want minimum removals, so we should keep maximum elements.
+
+Therefore, find the longest subarray with sum total - x, then:
+
+minimum removals = n - longest subarray length */
