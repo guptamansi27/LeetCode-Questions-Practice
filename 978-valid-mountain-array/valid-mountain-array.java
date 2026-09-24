@@ -10,7 +10,7 @@ class Solution {
         while(r>0 && arr[r]<arr[r-1]){
             r--;
         }
-        if(r==arr.length-1 || l==0)
+        if(l==arr.length-1 || r==0)
             return false;
         if(l==r)
             return true;
