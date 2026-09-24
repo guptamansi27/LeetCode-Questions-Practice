@@ -22,6 +22,6 @@ class Solution {
         }
 
         // low == high, pointing to the peak index
-        return low;
+        return high;
     }
 }
