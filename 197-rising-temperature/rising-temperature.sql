@@ -1,5 +1,17 @@
 # Write your MySQL query statement below
+/*
 select w1.id from weather w1
 join weather w2 on
 datediff(w1.recordDate,w2.recordDate)=1
-where w1.temperature>w2.temperature;
+where w1.temperature>w2.temperature;*/
+
+/*We need to compare two rows of the same table:
+- w1 = current day
+- w2 = previous day
+*/
+
+SELECT w1.id
+FROM Weather w1
+JOIN Weather w2
+ON w1.recordDate = DATE_ADD(w2.recordDate, INTERVAL 1 DAY)
+WHERE w1.temperature > w2.temperature;
