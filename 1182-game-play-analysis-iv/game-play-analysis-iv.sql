@@ -1,6 +1,7 @@
 # Write your MySQL query statement below
 select 
-round(count(*)/(select count(distinct (player_id)) from activity),2) as fraction
+#round(count(*)/(select count(distinct (player_id)) from activity),2) as fraction
+round(COUNT(DISTINCT a.player_id)/(select count(distinct (player_id)) from activity),2) as fraction
 from activity a
 join (
     select player_id, min(event_date) as first_date
