@@ -20,7 +20,7 @@ class Solution {
         while(e<n && o<n){
             if(nums[e]%2==0){
                 e+=2;
-            }else if(nums[o]%2!=0){
+            }else if(nums[o]%2==1){
                 o+=2;
             }else{
                 int temp=nums[o];
