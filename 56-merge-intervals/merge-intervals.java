@@ -21,9 +21,9 @@ class Solution {
           // Add the last interval
         list.add(new ArrayList<>(Arrays.asList(start,end)));
 
-        return list.stream()
-           .sorted((a, b) -> Integer.compare(a.get(0), b.get(0)))
-           .map(row -> row.stream().mapToInt(Integer::intValue).toArray())
-           .toArray(int[][]::new);
+        int[][] arr= new int[list.size()][2];
+        for(int i=0;i<list.size();i++)
+            arr[i]=list.get(i).stream().mapToInt(Integer::intValue).toArray();
+        return arr;
     }
 }
