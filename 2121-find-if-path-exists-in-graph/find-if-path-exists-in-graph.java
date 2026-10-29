@@ -16,14 +16,14 @@ class Solution {
 
         boolean[] vis=new boolean[n];//false
         vis[source]=true;
-        bfs(source,adj,vis);
+        bfs(source,adj,vis,destination);
         /*if(vis[destination]){
             return true;
         }
         return false;*/
         return vis[destination];
     }
-    private void bfs(int source,List<List<Integer>> adj,boolean[] vis){
+    private void bfs(int source,List<List<Integer>> adj,boolean[] vis,int destination){
         int n=adj.size();
 
         Queue<Integer> q = new LinkedList<>();
@@ -36,6 +36,9 @@ class Solution {
                 if(!vis[ele]){
                     q.add(ele);
                     vis[ele]=true;
+
+                    //optional you can do ,also not
+                    if(ele==destination) return;//stop checking other nodes if found
                 }
             }
         }
