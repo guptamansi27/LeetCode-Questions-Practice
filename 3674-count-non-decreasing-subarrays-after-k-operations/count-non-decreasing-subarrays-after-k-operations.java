@@ -1,3 +1,33 @@
+/* method 1 - 719/731 passed tessed case due to tle
+class Solution {
+    public boolean nonDecWithK(int i,int j,int k,int[] nums){
+        int diff=0;
+        int max=nums[i];
+        for(int t=i;t<=j;t++){
+            max=Math.max(max,nums[t]);
+            if(max>nums[t]){
+                diff+=(max-nums[t]);
+            }
+            if(diff>k)
+                return false;
+        }
+        return true;
+    }
+    public long countNonDecreasingSubarrays(int[] nums, int k) {
+        int l=0,r=0;
+        long nD=0;
+        int n=nums.length;
+        for(int i=0;i<n-1;i++){
+            for(int j=i+1;j<n;j++){
+                boolean nonDec= nonDecWithK(i,j,k,nums);
+                if(nonDec){
+                    nD++;
+                }
+            }
+        }
+        return nD+n;
+    }
+}*/
 
 import java.util.*;
 
@@ -7,60 +37,50 @@ class Solution {
 
         int n = nums.length;
 
-        long ans = 0;
-        long cost = 0;
-
-        // Store {value, count} in a monotonic deque
-        Deque<int[]> dq = new ArrayDeque<>();
+        long nD = 0;
+        long diff = 0;
 
         int j = n - 1;
 
-        // Traverse from right to left
+        Deque<int[]> dq = new ArrayDeque<>();
+
         for (int i = n - 1; i >= 0; i--) {
 
-            int num = nums[i];
+            int max = nums[i];
             int count = 1;
 
-            // Merge smaller groups into current number
-            while (!dq.isEmpty() && dq.peekLast()[0] < num) {
+            // Merge smaller elements
+            while (!dq.isEmpty() && dq.peekLast()[0] < max) {
 
                 int[] last = dq.pollLast();
 
-                int nextNum = last[0];
-                int nextCount = last[1];
+                diff += (long)(max - last[0]) * last[1];
 
-                count += nextCount;
-
-                // Cost of increasing smaller elements
-                cost += (long) (num - nextNum) * nextCount;
+                count += last[1];
             }
 
-            dq.offerLast(new int[]{num, count});
+            dq.offerLast(new int[]{max, count});
 
             // Shrink window if operations exceed k
-            while (cost > k) {
+            while (diff > k) {
 
                 int[] first = dq.pollFirst();
 
-                int rightmostNum = first[0];
-                int rightmostCount = first[1];
-
-                cost -= (long) (rightmostNum - nums[j]);
+                diff -= (long)(first[0] - nums[j]);
 
                 j--;
 
-                // Preserve remaining elements in this group
-                if (rightmostCount > 1) {
+                if (first[1] > 1) {
                     dq.offerFirst(
-                        new int[]{rightmostNum, rightmostCount - 1}
+                        new int[]{first[0], first[1] - 1}
                     );
                 }
             }
 
-            // Count valid subarrays ending within [i, j]
-            ans += j - i + 1;
+            // Count valid subarrays
+            nD += j - i + 1;
         }
 
-        return ans;
+        return nD;
     }
 }
