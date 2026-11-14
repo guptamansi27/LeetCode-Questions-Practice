@@ -1,30 +1,42 @@
+
 class Solution {
     public int minimumSumSubarray(List<Integer> nums, int l, int r) {
-        int n=nums.size();
-        
-        int min=Integer.MAX_VALUE;
 
-        for(int i=l;i<=r;i++){
-            System.out.println("Iteration: "+(i-l));
-            int sum=0;
-            for(int j=0;j<i;j++){
-                System.out.println("Hi");
-                sum+=nums.get(j);
+        int n = nums.size();
+        int min = Integer.MAX_VALUE;
+
+        // Try every possible subarray length from l to r
+        for (int k = l; k <= r; k++) {
+
+            int sum = 0;
+
+            // Calculate the sum of the first window of size k
+            for (int j = 0; j < k; j++) {
+                sum += nums.get(j);
             }
-            if(sum>0)
-                min=Math.min(sum,min);
-            
-            System.out.println(sum+" : "+min);
-            for(int j=i;j<n;j++){
-                sum-=nums.get(j-i);
-                sum+=nums.get(j);
 
-                if(sum>0)
-                    min=Math.min(sum,min);
-                System.out.println(sum+" : "+min);
+            // Check whether the first window has a positive sum
+            if (sum > 0) {
+                min = Math.min(min, sum);
+            }
 
+            // Slide the window through the remaining array
+            for (int j = k; j < n; j++) {
+
+                // Remove the element leaving the window
+                sum -= nums.get(j - k);
+
+                // Add the new element entering the window
+                sum += nums.get(j);
+
+                // Update minimum positive sum
+                if (sum > 0) {
+                    min = Math.min(min, sum);
+                }
             }
         }
-        return (min==Integer.MAX_VALUE)?-1:min;
+
+        // Return -1 if no positive subarray sum exists
+        return min == Integer.MAX_VALUE ? -1 : min;
     }
 }
