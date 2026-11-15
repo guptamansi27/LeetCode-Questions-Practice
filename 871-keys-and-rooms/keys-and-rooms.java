@@ -7,7 +7,7 @@ class Solution {
 
         bfs(0,visited,adj);
         for(boolean ele:visited){
-            if(ele==false){
+            if(!ele){
                 return false;
             }
         }
